@@ -510,10 +510,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                 dy = 7;
             };
         } else {
-            if (keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A]) dx = -4;
-            if (keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D]) dx = 4;
-            if (keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_W]) dy = -4;
-            if (keys[KeyEvent.VK_DOWN] || keys[KeyEvent.VK_S]) dy = 4;
+            if (keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A]) dx = -7;
+            if (keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D]) dx = 7;
+            if (keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_W]) dy = -7;
+            if (keys[KeyEvent.VK_DOWN] || keys[KeyEvent.VK_S]) dy = 7;
         }
 
         player.move(dx, dy, getWidth(), getHeight());

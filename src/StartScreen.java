@@ -40,12 +40,10 @@ public class StartScreen extends JPanel {
                         Pescollit = (Pescollit - 1 + 3) % 3;
                         repaint();
                         break;
-
                     case KeyEvent.VK_RIGHT:
-                        Pescollit = (Pescollit + 1) % 3;
+                        Pescollit = (Pescollit + 1) % 3 ;
                         repaint();
                         break;
-
                     case KeyEvent.VK_ENTER:
                         mainFrame.startGame(Pescollit, 1, nombreUsuario);
                         break;
