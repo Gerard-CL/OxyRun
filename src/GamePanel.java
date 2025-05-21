@@ -416,7 +416,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         });
 
         // Acción salir
-        salir.addActionListener(e -> System.exit(0));
+        salir.addActionListener(e -> {
+            ConexionMySQL.insertarPuntuacion("Pescollit", nivell);
+            System.exit(0);
+        });
+
 
         // Key Bindings
         InputMap im = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
