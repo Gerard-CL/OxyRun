@@ -31,12 +31,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private int nivell;
     private boolean victoryDialogShown = false;
     BufferedImage currentPlayerImage;
+    private String nombreUsuraio;
 
 
 
-    public GamePanel(int pescollit, int Nivell) {
+    public GamePanel(int pescollit, int Nivell, String nombreUsuraio) {
         this.Pescollit = pescollit;
         this.nivell = Nivell;
+        this.nombreUsuraio=nombreUsuraio;
         // Configuración inicial del panel
         setPreferredSize(new Dimension(1440, 900));
         setFocusable(true);
@@ -295,7 +297,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             timer.stop();
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             topFrame.getContentPane().removeAll();
-            GamePanel nuevoNivel = new GamePanel(Pescollit, nivell + 1);
+            GamePanel nuevoNivel = new GamePanel(Pescollit, nivell + 1, nombreUsuraio);
             topFrame.add(nuevoNivel);
             topFrame.revalidate();
             topFrame.repaint();
@@ -305,7 +307,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         });
 
         // Acción salir
-        salir.addActionListener(e -> System.exit(0));
+        salir.addActionListener(e -> {
+            ConexionMySQL.insertarPuntuacion(nombreUsuraio, nivell);
+            System.exit(0);
+        });
 
         // Key Bindings
         InputMap im = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
@@ -406,7 +411,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             nivell = 1;
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             topFrame.getContentPane().removeAll();
-            GamePanel nuevoNivel = new GamePanel(Pescollit, nivell);
+            GamePanel nuevoNivel = new GamePanel(Pescollit, nivell, nombreUsuraio);
             topFrame.add(nuevoNivel);
             topFrame.revalidate();
             topFrame.repaint();
@@ -417,7 +422,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
         // Acción salir
         salir.addActionListener(e -> {
-            ConexionMySQL.insertarPuntuacion("Pescollit", nivell);
+            ConexionMySQL.insertarPuntuacion(nombreUsuraio, nivell);
             System.exit(0);
         });
 

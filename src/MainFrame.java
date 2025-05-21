@@ -4,7 +4,6 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;
     private JPanel container;
-    private GamePanel gamePanel;
 
     public MainFrame() {
         setTitle("OxyRun");
@@ -15,8 +14,11 @@ public class MainFrame extends JFrame {
         container = new JPanel(cardLayout);
 
         // Crear pantallas
+        PantallaInicialPanel pantallaInicial = new PantallaInicialPanel(this);
         StartScreen startScreen = new StartScreen(this);
+
         // Añadir pantallas al contenedor
+        container.add(pantallaInicial, "pantallaInicial");
         container.add(startScreen, "start");
 
         // Configurar ventana
@@ -26,21 +28,39 @@ public class MainFrame extends JFrame {
         setVisible(true);
 
         // Mostrar pantalla inicial
-        cardLayout.show(container, "start");
+        cardLayout.show(container, "pantallaInicial");
     }
 
-    public void startGame(int pescollit, int Nivell) {
-        // Elimina el panel de inicio
+    public void showStartScreen(String nombre) {
+        cardLayout.show(container, "start");
+        StartScreen startScreen = (StartScreen) getStartScreen();
+        if (startScreen != null) {
+            startScreen.setNombre(nombre);  // Aquí le pasas el nombre al panel
+        }
+
+        SwingUtilities.invokeLater(() -> {
+            if (startScreen != null) {
+                startScreen.requestFocusInWindow(); // fuerza el foco
+            }
+        });
+    }
+
+    private Component getStartScreen() {
+        for (Component comp : container.getComponents()) {
+            if (comp instanceof StartScreen) {
+                return comp;
+            }
+        }
+        return null;
+    }
+
+    public void startGame(int pescollit, int Nivell, String nombreUsuario) {
         getContentPane().removeAll();
-
-        // Crea el juego pasando el personaje seleccionado
-        GamePanel gamePanel = new GamePanel(pescollit, Nivell);
+        GamePanel gamePanel = new GamePanel(pescollit, Nivell, nombreUsuario);
         add(gamePanel);
-
-        // Configuración de la ventana
         pack();
         revalidate();
         repaint();
-        gamePanel.requestFocusInWindow(); // Asegura que reciba eventos de teclado
+        gamePanel.requestFocusInWindow();
     }
 }

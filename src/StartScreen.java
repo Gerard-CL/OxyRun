@@ -17,6 +17,10 @@ public class StartScreen extends JPanel {
     private final int CHARACTER_HEIGHT = 150;
     private final int[] CHARACTER_X_POSITIONS = {320, 660, 1020};
     private final int CHARACTER_Y = 350;
+    public String nombre;
+    private JLabel Titulo;
+    private JLabel Titulo2;
+    public String nombreUsuario;
 
     public StartScreen(MainFrame mainFrame) {
         loadCustomFont();
@@ -43,7 +47,7 @@ public class StartScreen extends JPanel {
                         break;
 
                     case KeyEvent.VK_ENTER:
-                        mainFrame.startGame(Pescollit, 1);
+                        mainFrame.startGame(Pescollit, 1, nombreUsuario);
                         break;
                 }
             }
@@ -52,7 +56,7 @@ public class StartScreen extends JPanel {
 
         JPanel charactersPanel = new JPanel() {
             @Override
-            protected void paintComponent(Graphics g) {
+            public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 drawBackground(g);
 
@@ -106,14 +110,30 @@ public class StartScreen extends JPanel {
 
         charactersPanel.setOpaque(false);
         charactersPanel.setPreferredSize(new Dimension(1440, 700));
+        charactersPanel.setLayout(new BoxLayout(charactersPanel, BoxLayout.Y_AXIS));
         add(charactersPanel);
 
-        JLabel Titulo = new JLabel();
-        Titulo.setFont(pressStartFont.deriveFont(100f));
+        Titulo = new JLabel();
+        Titulo2 = new JLabel();
+        Titulo.setFont(pressStartFont.deriveFont(60f));
         Titulo.setForeground(Color.WHITE);
-        Titulo.setText("OxyRun");
         Titulo.setBorder(new EmptyBorder(50, 0, 0, 0));
+        Titulo2.setFont(pressStartFont.deriveFont(30f));
+        Titulo2.setForeground(Color.WHITE);
+        Titulo2.setBorder(new EmptyBorder(100, 0, 0, 0));
+        Titulo2.setText("Elige un personaje:");
+        Titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        Titulo2.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         charactersPanel.add(Titulo);
+        charactersPanel.add(Titulo2);
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+        nombreUsuario = nombre;
+        Titulo.setText("Hola " + nombre);
+        repaint();
     }
 
     private void loadCustomFont() {
