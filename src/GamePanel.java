@@ -66,12 +66,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         player = new Personatge(aleatorioAmpladaP, aleatorioAlturaP);
         ship = new Ship(aleatorioAmpladaN, aleatorioAlturaN);
         enemies = new ArrayList<>();
-
-        // Crear bootn siguinte nivel
-
-
-
-
         this.setLayout(null); // usar layout absoluto
 
         // Crear enemigos aleatorios
