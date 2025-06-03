@@ -108,6 +108,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             System.err.println("Error al cargar la imagen de fondo: " + e.getMessage());
             Pcientific = null;
         }
+        try {
+            Pcientific = ImageIO.read(new File("src/img/Cientific.png"));
+        } catch (IOException e) {
+            System.err.println("Error al cargar la imagen de fondo: " + e.getMessage());
+            Pcientific = null;
+        }
 
         try {
             Pclon = ImageIO.read(new File("src/img/Clon.png"));
